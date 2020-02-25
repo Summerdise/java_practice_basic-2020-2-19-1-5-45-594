@@ -2,31 +2,38 @@ import java.util.*;
 
 public class Teacher {
     String name;
-    Map<String, Integer> studentList;
+    Map<Integer, List> studentMap;
 
     public Teacher() {
     }
 
-    public Teacher(String name, Map<String, Integer> studentList) {
+    public Teacher(String name, Map<Integer, List> studentMap) {
         this.name = name;
-        this.studentList = studentList;
+        this.studentMap = studentMap;
     }
 
     public String getName() {
         return name;
     }
 
-    public Map<String, Integer> getStudentList() {
-        return studentList;
+    public Map<Integer, List> getStudentMap() {
+        return studentMap;
     }
 
-    public void setStudentList(Map<String, Integer> studentList) {
-        this.studentList = studentList;
+    public void setStudentMap(Map<Integer, List> studentMap) {
+        this.studentMap = studentMap;
     }
 
     public void addStudent(Student student) {
-        String name = student.getName();
         int age = student.getAge();
-        this.studentList.put(name, age);
+        List<Student> studentList;
+        if(studentMap.containsKey(age)){
+            studentList = studentMap.get(age);
+            studentList.add(student);
+        } else{
+            studentList = new ArrayList<>();
+            studentList.add(student);
+        }
+        studentMap.put(age,studentList);
     }
 }
